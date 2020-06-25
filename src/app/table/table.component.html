@@ -1,0 +1,39 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade"
+       *ngIf="lasterDataFraAirtable">
+    <mat-spinner *ngIf="lasterDataFraAirtable"></mat-spinner>
+  </div>
+
+  <div class="example-table-container">
+
+    <table mat-table [dataSource]="data | slice: lowValue : highValue" class="example-table"
+           matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+      <!-- Navn -->
+      <ng-container matColumnDef="Navn">
+        <th mat-header-cell *matHeaderCellDef> Navn </th>
+        <td mat-cell *matCellDef="let row">{{row.Navn}}</td>
+      </ng-container>
+
+      <!-- Senioritet -->
+      <ng-container matColumnDef="Senioritet">
+        <th mat-header-cell *matHeaderCellDef> Senioritet </th>
+        <td mat-cell *matCellDef="let row">{{row.Senioritet}}</td>
+      </ng-container>
+
+      <!-- Kundeticker -->
+      <ng-container matColumnDef="Kundeticker">
+        <th mat-header-cell *matHeaderCellDef> Kundeticker </th>
+        <td mat-cell *matCellDef="let row">{{row.Kundeticker}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="kolonnerSomSkalVises"></tr>
+      <tr mat-row *matRowDef="let row; columns: kolonnerSomSkalVises;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator [length]="resultaterLengde"
+                 [pageSize]="pageSize"
+                 (page)="pageEvent = getPaginatorData($event)">
+  </mat-paginator>
+</div>
+
