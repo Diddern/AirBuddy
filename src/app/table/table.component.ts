@@ -11,11 +11,18 @@ export class TableComponent implements OnInit {
 
   constructor(public airtableService: AirtableService) {}
 
-  kolonnerSomSkalVises: string[] = ['Navn', 'Senioritet', 'Kundeticker'];
-  lasterDataFraAirtable = true;
-  resultaterLengde = 0;
-  data = [];
+  ansattData = [];
+  ansattKolonnerSomSkalVises: string[] = ['Navn', 'Senioritet', 'Kundeticker'];
+  lasterAnsattDataFraAirtable = true;
+  ansatteResultaterLengde = 0;
 
+  // Akkurat nå vises bare teams i konsollet.
+  teamsData = [];
+  teamsKolonnerSomSkalVises: string[] = [''];
+  lasterTeamsDataFraAirtable = true;
+  teamsResultaterLengde = 0;
+
+  // Variabler for pagination
   pageEvent: PageEvent;
   pageSize = 50;
   pageIndex = 0;
@@ -23,10 +30,16 @@ export class TableComponent implements OnInit {
   highValue = 50;
 
   ngOnInit(): void {
-    this.airtableService.getNavn().then(records => {
-      this.data = (records as Airtable.Records<any>).map(a => a.fields);
-      this.resultaterLengde = this.data.length;
-      this.lasterDataFraAirtable = false;
+    this.airtableService.getAnsatte().then(records => {
+      this.ansattData = (records as Airtable.Records<any>).map(a => a.fields);
+      this.ansatteResultaterLengde = this.ansattData.length;
+      this.lasterAnsattDataFraAirtable = false;
+    });
+    this.airtableService.getTeams().then(records => {
+      this.teamsData = (records as Airtable.Records<any>).map(a => a.fields);
+      this.teamsResultaterLengde = this.teamsData.length;
+      this.lasterTeamsDataFraAirtable = false;
+      console.log('Teams data:', this.teamsData);
     });
   }
 
