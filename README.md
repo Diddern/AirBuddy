@@ -25,3 +25,17 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Environment
+
+Add environments folder: `src/environment` and add files: `environment.ts` and ` environment.prod.ts`
+
+Example of `environment.ts`: 
+```
+export const environment = {
+  production: false,
+  AIRTABLE_API_KEY: 'YOUR KEY HERE',
+  AIRTABLE_BASE: 'YOUR BASE'
+};
+```
+To retreive the base and API key, visit [Airtable api page](https://airtable.com/api) and [Airtable account page](https://airtable.com/account)
